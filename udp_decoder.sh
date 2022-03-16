@@ -13,7 +13,7 @@ while IFS= read -r line; do
 	    continue
     fi
     echo $line | xxd -r -p | protoc --decode_raw > tmp.txt
-    echo $line | xxd -r -p | protoc --decode_raw >> decoded_raw.txt
+    echo $line | xxd -r -p | protoc --decode_raw >> udp_decoded_raw.txt
     # For Juniper Networks, the IANA assigned identifier is 2636
     # 2636 is the identifier for Juniper -
     # telemetry_top.proto:    optional JuniperNetworksSensors juniperNetworks = 2636;
@@ -31,7 +31,7 @@ while IFS= read -r line; do
     then
 	    continue
     fi
-    echo $line | xxd -r -p | protoc --decode TelemetryStream $proto_file -I /usr/include/ -I .  >> decoded.txt
+    echo $line | xxd -r -p | protoc --decode TelemetryStream $proto_file -I /usr/include/ -I .  >> udp_decoded.txt
 
 done < $1
 
