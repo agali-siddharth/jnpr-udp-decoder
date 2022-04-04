@@ -24,7 +24,12 @@ while IFS= read -r line; do
     # vrrpd_oc.proto-   optional interfaces_vrrp jnpr_interfaces_vrrp_ext = 71;
     # vrrpd_oc.proto-}
 
-    proto_file_1=`grep -A1 JuniperNetworksSensors *.proto | grep "= $x;" | awk '{print $1}'`
+    proto_file_count=`grep -A1 JuniperNetworksSensors *.proto | grep "= $x;" | wc -l`
+    if [ $proto_file_count -gt 1 ]
+    then
+	    echo "warning: more than 1 proto file found to decode message id "$x
+    fi
+    proto_file_1=`grep -A1 JuniperNetworksSensors *.proto | grep "= $x;" | head -n 1| awk '{print $1}'`
     # remove the last character
     proto_file=${proto_file_1%?}
     if [ -z "$proto_file" ]
