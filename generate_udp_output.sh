@@ -11,4 +11,4 @@ fi
 
 tshark -r $file -Y "udp" -T fields -e data > tshark_data.txt
 
-bash /jnpr-udp-decoder/udp_decoder.sh tshark_data.txt
+bash udp_decoder.sh tshark_data.txt
